@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj113yg8dbs8"]
+
+[ext_resource type="Texture2D" uid="uid://ck7egiq3hvbr7" path="res://grid_texture.png" id="1_37p78"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="TextureRect" parent="."]
+modulate = Color(0.39920694, 0.06922331, 0.0437172, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.48697916
+anchor_top = 0.34259257
+anchor_right = 0.51324725
+anchor_bottom = 0.38734567
+offset_top = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_37p78")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
