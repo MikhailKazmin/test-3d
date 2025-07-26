@@ -6,6 +6,7 @@ var can_move: bool = false
 var velocity: Vector3 = Vector3.ZERO
 var input: SkeletonInput
 var state: SkeletonState
+@export var nav_agent: NavigationAgent3D
 
 func _setup():
 	entity.connect("ready_for_movement", Callable(self, "_on_ready_for_movement"))
@@ -13,6 +14,13 @@ func _setup():
 	state = entity.get_component(SkeletonState)
 	if state:
 		state.connect("state_changed", Callable(self, "_on_state_changed"))
+	if nav_agent:
+		nav_agent.avoidance_enabled = true
+		nav_agent.radius = 1  # Adjust to your unit size
+		nav_agent.neighbor_distance = 5.0  # Distance to consider neighbors
+		nav_agent.time_horizon = 1.0
+		nav_agent.max_neighbors = 10
+		nav_agent.velocity_computed.connect(_on_velocity_computed)
 	start_initial_rise()
 
 func physics_process(delta: float):
@@ -20,9 +28,9 @@ func physics_process(delta: float):
 		velocity = Vector3.ZERO
 		return
 
-	velocity = input.direction * speed
-	entity.velocity = velocity
-	entity.move_and_slide()
+	var next_pos = nav_agent.get_next_path_position()
+	var intended_velocity = (next_pos - entity.global_position).normalized() * speed
+	nav_agent.velocity = intended_velocity  # Trigger avoidance computation
 
 func start_initial_rise():
 	if state:
@@ -40,3 +48,9 @@ func _on_ready_for_movement():
 
 func _on_state_changed(new_state: int):
 	pass
+
+func _on_velocity_computed(safe_velocity: Vector3):
+	velocity = safe_velocity
+	velocity.y = 0
+	entity.velocity = velocity
+	entity.move_and_slide()

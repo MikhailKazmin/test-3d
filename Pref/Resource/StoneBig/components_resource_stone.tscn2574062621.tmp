@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1i6vg51ekobm"]
+
+[ext_resource type="PackedScene" uid="uid://6fq228vgppjm" path="res://Pref/Resource/StoneBig/Model/Rock_1_D_Color1.fbx" id="2_vkecc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ph011"]
+size = Vector3(0.96715087, 1.1332566, 1.1763314)
+
+[node name="StoneBig" type="StaticBody3D" groups=["gatherables"]]
+
+[node name="Rock_1_D_Color1" parent="." instance=ExtResource("2_vkecc")]
+transform = Transform3D(2.748795, 0, 0, 0, 2.0228362, 0, 0, 0, 2.748795, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07387082, 0.57185894, -0.045297205)
+shape = SubResource("BoxShape3D_ph011")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="State" type="Node" parent="Components"]
+
+[node name="Interaction" type="Node" parent="Components"]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 0.0
+vertices = PackedVector3Array(-1.0771289, 0, -1.8291782, -1.0383134, 0, 1.5380622, 1.552618, 0, 1.5380622, 1.5623217, 0, -1.8291782)

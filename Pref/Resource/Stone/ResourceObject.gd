@@ -1,12 +1,13 @@
 extends Node3D
 class_name Gatherable
 
+@export var env:Env 
 @export var resource_id: String = "stone"
 @export var component_parent: Node
-
 var components: Dictionary = {}
 
 func _ready():
+
 	components = {
 		"state": $Components/State,
 		"interaction": $Components/Interaction

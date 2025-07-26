@@ -5,7 +5,7 @@ class_name ResourceState
 @export var slot_distance: float = 1.5  # Distance from resource center to slot
 var current_gatherers: Dictionary = {}  # Skeleton -> slot_index
 var slots: Array[Vector3] = []
-var hp: int = 50
+var hp: int = 10
 var is_depleted: bool = false
 
 func _setup():
@@ -36,7 +36,13 @@ func take_damage(amount: int):
 		print("Ресурс исчерпан!")
 		current_gatherers.clear()
 		entity.queue_free()
+		call_deferred("_rebake_navmesh_async")
 	else:
 		var tween = entity.create_tween()
 		tween.tween_property(entity, "scale", Vector3(1.1, 1.1, 1.1), 0.1).set_trans(Tween.TRANS_SINE)
 		tween.tween_property(entity, "scale", Vector3(1.0, 1.0, 1.0), 0.1).set_trans(Tween.TRANS_SINE)
+
+func _rebake_navmesh_async():
+	entity.env.update_nav.emit()
+
+	

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1i6vg51ekobm"]
+
+[ext_resource type="Script" uid="uid://d24pjumjj2uvk" path="res://Pref/Resource/Stone/ResourceObject.gd" id="1_jy2jx"]
+[ext_resource type="PackedScene" uid="uid://6fq228vgppjm" path="res://Pref/Resource/StoneBig/Model/Rock_1_D_Color1.fbx" id="2_vkecc"]
+[ext_resource type="Script" uid="uid://bssk3lm6t3i7l" path="res://Pref/Resource/Stone/Component/State.gd" id="3_w3ssa"]
+[ext_resource type="Script" uid="uid://dpncbpgvbfj4q" path="res://Pref/Resource/Stone/Component/Interaction.gd" id="4_lw6fq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ph011"]
+size = Vector3(0.96715087, 1.1332566, 1.1763314)
+
+[node name="StoneBig" type="StaticBody3D" groups=["gatherables"]]
+script = ExtResource("1_jy2jx")
+
+[node name="Rock_1_D_Color1" parent="." instance=ExtResource("2_vkecc")]
+transform = Transform3D(2.748795, 0, 0, 0, 2.0228362, 0, 0, 0, 2.748795, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07387082, 0.57185894, -0.045297205)
+shape = SubResource("BoxShape3D_ph011")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="State" type="Node" parent="Components"]
+script = ExtResource("3_w3ssa")
+
+[node name="Interaction" type="Node" parent="Components"]
+script = ExtResource("4_lw6fq")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 0.0
+vertices = PackedVector3Array(-1.0771289, 0, -1.8291782, -1.0383134, 0, 1.5380622, 1.552618, 0, 1.5380622, 1.5623217, 0, -1.8291782)

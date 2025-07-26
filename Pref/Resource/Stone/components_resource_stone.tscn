@@ -9,6 +9,8 @@
 size = Vector3(0.96715087, 1.1332566, 1.1763314)
 
 [node name="Stone" type="StaticBody3D" node_paths=PackedStringArray("component_parent") groups=["gatherables"]]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_4oc7a")
 component_parent = NodePath("Components")
 
@@ -27,5 +29,5 @@ script = ExtResource("3_hi6ao")
 script = ExtResource("4_b0ni5")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-height = 0.0
 vertices = PackedVector3Array(-0.4079156, 0, -0.65349734, -0.4079156, 0, 0.5286252, 0.5494375, 0, 0.5369501, 0.55776215, 0, -0.6285229)
+avoidance_layers = 4

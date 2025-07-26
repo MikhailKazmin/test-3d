@@ -31,11 +31,18 @@ func process(delta: float):
 	if current_resource and is_instance_valid(current_resource):
 		var target_pos = current_resource.global_position + assigned_slot_offset
 		nav_agent.set_target_position(target_pos)
-		if nav_agent.is_navigation_finished() and not is_gathering:
-			is_gathering = true
-			if state:
-				state.set_state(SkeletonState.State.GATHERING)
-			entity.emit_signal("gather_resource", current_resource)
+		if nav_agent.is_navigation_finished():
+			if not is_gathering:
+				is_gathering = true
+				if state:
+					state.set_state(SkeletonState.State.GATHERING)
+				entity.emit_signal("gather_resource", current_resource)
+			direction = (current_resource.global_position - entity.global_position).normalized()
+			direction.y = 0
+		else:
+			var next_path_pos = nav_agent.get_next_path_position()
+			direction = (next_path_pos - entity.global_position).normalized()
+			direction.y = 0
 	else:
 		assigned_slot_offset = Vector3.ZERO
 		search_cooldown -= delta
@@ -57,9 +64,9 @@ func process(delta: float):
 			direction = Vector3.ZERO
 			return
 
-	var next_path_pos = nav_agent.get_next_path_position()
-	direction = (next_path_pos - entity.global_position).normalized()
-	direction.y = 0
+		var next_path_pos = nav_agent.get_next_path_position()
+		direction = (next_path_pos - entity.global_position).normalized()
+		direction.y = 0
 
 func find_nearest_resource() -> Gatherable:
 	var nearest: Gatherable = null
@@ -89,13 +96,22 @@ func get_all_gatherables() -> Array:
 func _on_gather_animation_finished(resource):
 	if resource and is_instance_valid(resource):
 		var res_state = resource.components["state"] as ResourceState
-		if res_state:
-			res_state.remove_gatherer(entity)
-	is_gathering = false
-	current_resource = null
-	assigned_slot_offset = Vector3.ZERO
-	if state:
-		state.set_state(SkeletonState.State.IDLE)
+		if res_state and not res_state.is_depleted:
+			is_gathering = false
+		else:
+			if res_state:
+				res_state.remove_gatherer(entity)
+			is_gathering = false
+			current_resource = null
+			assigned_slot_offset = Vector3.ZERO
+			if state:
+				state.set_state(SkeletonState.State.IDLE)
+	else:
+		is_gathering = false
+		current_resource = null
+		assigned_slot_offset = Vector3.ZERO
+		if state:
+			state.set_state(SkeletonState.State.IDLE)
 
 func _on_state_changed(new_state: int):
 	pass

@@ -62,11 +62,6 @@ toggle_mouse_lock={
 ]
 }
 
-[navigation]
-
-3d/default_cell_size=0.5
-3d/default_cell_height=0.5
-
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -74,3 +69,4 @@ toggle_mouse_lock={
 [rendering]
 
 global_illumination/max_fps=60
+2d/avoidance/3d/enable_obstacles_static=true
