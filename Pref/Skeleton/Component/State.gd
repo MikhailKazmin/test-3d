@@ -33,7 +33,8 @@ func set_state(new_state: State):
 		current_state = new_state
 		state_changed.emit(new_state)
 		# Преобразуем состояние в строку для отображения
-		label_3d.text = _state_to_string(current_state)
+		if label_3d.visible:
+			label_3d.text = _state_to_string(current_state)
 
 func is_ready_for_movement() -> bool:
 	return current_state == State.IDLE or current_state == State.MOVING

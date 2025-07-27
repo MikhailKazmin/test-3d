@@ -5,8 +5,7 @@ signal update_nav
 
 var last_bake_time: int = 0
 var bake_pending: bool = false
-
-@export var nav_reg : NavigationRegion3D
+@onready var nav_reg: NavigationRegion3D = $"."
 
 func _ready() -> void:
 	update_nav.connect(_rebake_navmesh_async)

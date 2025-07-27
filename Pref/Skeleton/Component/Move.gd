@@ -3,7 +3,7 @@ class_name SkeletonMove
 
 @export var speed: float = 5.0
 var can_move: bool = false
-var velocity: Vector3 = Vector3.ZERO
+
 var input: SkeletonInput
 var state: SkeletonState
 @export var nav_agent: NavigationAgent3D
@@ -15,22 +15,17 @@ func _setup():
 	if state:
 		state.connect("state_changed", Callable(self, "_on_state_changed"))
 	if nav_agent:
-		nav_agent.avoidance_enabled = true
-		nav_agent.radius = 1  # Adjust to your unit size
-		nav_agent.neighbor_distance = 5.0  # Distance to consider neighbors
-		nav_agent.time_horizon = 1.0
-		nav_agent.max_neighbors = 10
-		nav_agent.velocity_computed.connect(_on_velocity_computed)
+		nav_agent.avoidance_priority = randf()  # Случайный приоритет (0-1), чтобы юниты "уступали" по-разному
+		#nav_agent.velocity_computed.connect(_on_velocity_computed)
 	start_initial_rise()
 
 func physics_process(delta: float):
 	if not can_move or not state or not input or not state.is_ready_for_movement():
-		velocity = Vector3.ZERO
+		entity.velocity = Vector3.ZERO
 		return
 
-	var next_pos = nav_agent.get_next_path_position()
-	var intended_velocity = (next_pos - entity.global_position).normalized() * speed
-	nav_agent.velocity = intended_velocity  # Trigger avoidance computation
+	entity.velocity = input.direction * speed
+	entity.move_and_slide()
 
 func start_initial_rise():
 	if state:
@@ -50,7 +45,12 @@ func _on_state_changed(new_state: int):
 	pass
 
 func _on_velocity_computed(safe_velocity: Vector3):
-	velocity = safe_velocity
-	velocity.y = 0
-	entity.velocity = velocity
+	entity.velocity = safe_velocity
+	entity.velocity.y = 0  # Уже есть, но убедитесь, что terrain flat
+	if entity.velocity.length() < 0.1 and not nav_agent.is_navigation_finished():
+		print("Малая velocity, толкаем/repah")
+		# Вариант 1: Толчок в направлении
+		entity.velocity += input.direction.normalized() * speed * 0.2  # Малый boost
+		# Вариант 2: Force repath
+		#nav_agent.set_target_position(nav_agent.get_target_position())
 	entity.move_and_slide()
