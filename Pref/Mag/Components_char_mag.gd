@@ -1,7 +1,9 @@
 extends Entity
 class_name Player
 
-@export var mesh_instance: MeshInstance3D
+@export var caster: PentagramCaster
+@export var available_pentagram_effects: Array[PentagramEffect]
+@export var pentagram_wheel: PentagramWheel  # Ссылка на колесо выбора
 
 func _ready() -> void:
 	components = {

@@ -3,6 +3,9 @@ class_name SkeletonState
 
 signal state_changed(new_state: int)
 @onready var label_3d: Label3D = $"../../Label3D"
+var is_selected: bool = false
+@onready var mark: Sprite3D = $"../../Mark"
+
 
 enum State {
 	RISING,

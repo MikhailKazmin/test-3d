@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2i0vmgn8xy4x"]
+[gd_scene load_steps=18 format=3 uid="uid://c2i0vmgn8xy4x"]
 
 [ext_resource type="Texture2D" uid="uid://ck7egiq3hvbr7" path="res://grid_texture.png" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dh7ux3canc7bl" path="res://Pref/Mag/components_char_mag.tscn" id="2_2wwxx"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://d1i6vg51ekobm" path="res://Pref/Resource/StoneBig/components_resource_stoneBig.tscn" id="6_c2iwn"]
 [ext_resource type="PackedScene" uid="uid://c3g05iruk46c1" path="res://Pref/Resource/Stone/components_resource_stone.tscn" id="6_ow1sv"]
 [ext_resource type="Script" uid="uid://c724y88a3yg1f" path="res://Scripts/FPSCounter.gd" id="8_75buv"]
+[ext_resource type="Script" uid="uid://cv8bqio8hd1jc" path="res://Scripts/PentagramWheel.gd" id="10_0sxm5"]
+[ext_resource type="Script" uid="uid://c56jjew02px7o" path="res://Scripts/PentagramDrawer.gd" id="10_3pt4j"]
+[ext_resource type="Script" uid="uid://2e1qriap1ws5" path="res://Scripts/PentagramCaster.gd" id="11_mxd2g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -791,8 +794,9 @@ env = NodePath("../../../..")
 
 [node name="CircleMesh" type="MeshInstance3D" parent="."]
 
-[node name="Char_Mag" parent="." node_paths=PackedStringArray("mesh_instance") instance=ExtResource("2_2wwxx")]
-mesh_instance = NodePath("../CircleMesh")
+[node name="Char_Mag" parent="." node_paths=PackedStringArray("caster", "pentagram_wheel") instance=ExtResource("2_2wwxx")]
+caster = NodePath("../PentagramCaster")
+pentagram_wheel = NodePath("../CanvasLayer/PentagramWheel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -815,3 +819,25 @@ text = "текущий
 script = ExtResource("8_75buv")
 rich_text_label = NodePath(".")
 update_interval = 1.0
+
+[node name="PentagramWheel" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1484, 489)
+script = ExtResource("10_0sxm5")
+icon_size = Vector2(128, 128)
+
+[node name="PentagramDrawer" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance")]
+script = ExtResource("10_3pt4j")
+points_count = 32
+mesh_instance = NodePath("../CircleMesh")
+
+[node name="PentagramCaster" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance", "decal_parent", "drawer")]
+script = ExtResource("11_mxd2g")
+mesh_instance = NodePath("../CircleMesh")
+decal_parent = NodePath(".")
+drawer = NodePath("../PentagramDrawer")

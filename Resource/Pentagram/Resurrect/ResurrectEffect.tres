@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PentagramEffect" load_steps=5 format=3 uid="uid://bjvo3sf30uegj"]
+
+[ext_resource type="Script" uid="uid://vmc7g1migcqc" path="res://Resource/Pentagram/PentagramEffect.gd" id="1_60tud"]
+[ext_resource type="Script" uid="uid://bpm4oj2sx10bm" path="res://Resource/Pentagram/Resurrect/ResurrectEffect.gd" id="1_mmrgs"]
+[ext_resource type="Texture2D" uid="uid://bhf7m5ktfel6t" path="res://Pref/Mag/Inverted_Pentagram_circumscribed_mark.png" id="3_6e1yx"]
+[ext_resource type="Texture2D" uid="uid://bh00tt6yv0kix" path="res://Pref/Mag/Inverted_Pentagram_circumscribed.svg.png" id="3_ixlq6"]
+
+[resource]
+script = ExtResource("1_60tud")
+name = "ResurrectEffect"
+texture = ExtResource("3_ixlq6")
+texture_wheel = ExtResource("3_6e1yx")
+effect_script = ExtResource("1_mmrgs")
+metadata/_custom_type_script = "uid://vmc7g1migcqc"

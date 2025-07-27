@@ -7,6 +7,8 @@ var current_gatherers: Dictionary = {}  # Skeleton -> slot_index
 var slots: Array[Vector3] = []
 var hp: int = 10
 var is_depleted: bool = false
+var is_marked: bool = false
+@onready var mark: Sprite3D = $"../../Mark"
 
 func _setup():
 	for i in range(max_gatherers):

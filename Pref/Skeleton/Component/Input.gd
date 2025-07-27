@@ -15,6 +15,7 @@ var assigned_slot_offset: Vector3 = Vector3.ZERO
 @export var update_interval: float = 0.1  # Интервал обновления логики в секундах
 var accumulated_delta: float = 0.0
 var _last_random_target: Vector3 = Vector3.INF
+var formation_target: Vector3 = Vector3.ZERO
 
 func _setup():
 	entity.connect("ready_for_movement", Callable(self, "_on_ready_for_movement"))
@@ -38,12 +39,24 @@ func _perform_logic(delta: float):
 		#print("Не контроллируем")
 		direction = Vector3.ZERO
 		return
-	if current_resource and is_instance_valid(current_resource):
+	if formation_target != Vector3.ZERO:
+		_handle_formation(delta)
+	elif current_resource and is_instance_valid(current_resource):
 		_handle_resource(delta)
 	else:
 		_handle_search(delta)
 		_handle_random(delta)
 
+func _handle_formation(delta: float):
+	nav_agent.set_target_position(formation_target)
+	if nav_agent.is_navigation_finished():
+		formation_target = Vector3.ZERO
+		if state:
+			state.set_state(SkeletonState.State.IDLE)
+	else:
+		var next_path_pos = nav_agent.get_next_path_position()
+		direction = (next_path_pos - entity.global_position).normalized()
+		direction.y = 0
 
 func _handle_resource(delta: float):
 	var target_pos = current_resource.global_position + assigned_slot_offset
@@ -113,7 +126,7 @@ func find_nearest_resource() -> Gatherable:
 	for node in get_all_gatherables():
 		if node is Gatherable:
 			var res_state = node.components["state"] as ResourceState
-			if res_state and not res_state.is_depleted and res_state.can_add_gatherer():
+			if res_state and not res_state.is_depleted and res_state.can_add_gatherer() and res_state.is_marked:
 				var dist = entity.global_position.distance_to(node.global_transform.origin)
 				if dist < nearest_dist:
 					nearest = node
@@ -124,7 +137,7 @@ func _on_ready_for_movement():
 	can_control = true
 
 func get_all_gatherables() -> Array:
-	return get_tree().get_nodes_in_group("gatherables")
+	return get_tree().get_nodes_in_group("Gatherables")
 
 func _on_gather_animation_finished(resource):
 	if resource and is_instance_valid(resource):
@@ -148,3 +161,8 @@ func _on_gather_animation_finished(resource):
 
 func _on_state_changed(new_state: int):
 	pass
+
+func set_formation_target(target: Vector3) -> void:
+	formation_target = target
+	if state:
+		state.set_state(SkeletonState.State.MOVING)
