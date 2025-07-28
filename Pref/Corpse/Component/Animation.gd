@@ -11,8 +11,6 @@ func process(delta: float) -> void:
 	if not is_active:
 		return
 
-		play_animation("Idle")
-
 func play_animation(anim_name: String, force: bool = false) -> void:
 	if not force and current_animation == anim_name:
 		return
