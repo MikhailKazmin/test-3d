@@ -52,6 +52,7 @@ func _complete_sequence():
 func _on_gather_resource(resource):
 	if not state or state.current_state != SkeletonState.State.GATHERING or is_gathering_anim:
 		return
+	print("amin_on_gather_resource")
 	is_gathering_anim = true
 	if state:
 		state.set_state(SkeletonState.State.GATHERING)

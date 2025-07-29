@@ -12,6 +12,10 @@ func _ready() -> void:
 	components = {
 		"state": $Components/State,
 		"input": $Components/Input,
+		"navigation": $Components/Navigation,
+		"gathering": $Components/Gathering,
+		"randomMovement": $Components/RandomMovement,
+		"formation": $Components/Formation,
 		"movement": $Components/Move,
 		"animation": $Components/Animation,
 		"rotate": $Components/Rotate

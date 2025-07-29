@@ -4,13 +4,13 @@ class_name SkeletonMove
 @export var speed: float = 5.0
 var can_move: bool = false
 
-var input: SkeletonInput
+var navigation: SkeletonNavigation
 var state: SkeletonState
 @export var nav_agent: NavigationAgent3D
 
 func _setup():
 	entity.connect("ready_for_movement", Callable(self, "_on_ready_for_movement"))
-	input = entity.get_component(SkeletonInput)
+	navigation = entity.get_component(SkeletonNavigation)
 	state = entity.get_component(SkeletonState)
 	if state:
 		state.connect("state_changed", Callable(self, "_on_state_changed"))
@@ -20,11 +20,11 @@ func _setup():
 	start_initial_rise()
 
 func physics_process(delta: float):
-	if not can_move or not state or not input or not state.is_ready_for_movement():
+	if not can_move or not state or not navigation or not state.is_ready_for_movement():
 		entity.velocity = Vector3.ZERO
 		return
 
-	entity.velocity = input.direction * speed
+	entity.velocity = navigation.direction * speed
 	entity.move_and_slide()
 
 func start_initial_rise():
@@ -50,7 +50,7 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	if entity.velocity.length() < 0.1 and not nav_agent.is_navigation_finished():
 		print("Малая velocity, толкаем/repah")
 		# Вариант 1: Толчок в направлении
-		entity.velocity += input.direction.normalized() * speed * 0.2  # Малый boost
+		entity.velocity += navigation.direction.normalized() * speed * 0.2  # Малый boost
 		# Вариант 2: Force repath
 		#nav_agent.set_target_position(nav_agent.get_target_position())
 	entity.move_and_slide()

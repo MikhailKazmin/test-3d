@@ -51,9 +51,9 @@ func apply(center: Vector3, radius: float, caller: Node) -> void:
 			target_pos = center + dir * (radius - margin)
 
 		# Устанавливаем точку передвижения в input компоненте
-		var input_comp = unit.get_component(SkeletonInput)
-		if input_comp:
-			input_comp.set_formation_target(target_pos)
+		var formation_comp = unit.get_component(SkeletonFormation)
+		if formation_comp:
+			formation_comp.set_formation_target(target_pos)
 
 		current_col += 1
 		if current_col >= num_per_row:
