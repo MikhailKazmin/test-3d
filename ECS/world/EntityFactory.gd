@@ -23,6 +23,8 @@ func create_skeleton(position: Vector3) -> Entity:
 	skeleton.add_component(component_pool.get_component("Position"), ComponentType.get_mask("Position"))
 	skeleton.add_component(component_pool.get_component("CharacterBody3D"), ComponentType.get_mask("CharacterBody3D"))
 	skeleton.add_component(component_pool.get_component("Move"), ComponentType.get_mask("Move"))
+	var move_comp = component_pool.get_component("Move")
+	move_comp.can_move = false  # Отключаем движение при создании
 	#event_bus.subscribe("ready_for_movement", Callable(self, "_ready_for_movement"))
 	skeleton.add_component(component_pool.get_component("Navigation"), ComponentType.get_mask("Navigation"))
 	skeleton.add_component(component_pool.get_component("Gathering"), ComponentType.get_mask("Gathering"))
@@ -39,7 +41,7 @@ func create_skeleton(position: Vector3) -> Entity:
 	ecs_manager.add_child(skeleton_scene)  # Добавляем в World
 	skeleton_scene.global_position = position
 	
-	await skeleton_scene.ready
+	await get_tree().create_timer(1).timeout
 	
 	# Настраиваем CharacterBody3DComponent
 	var body_comp = skeleton.get_component(ComponentType.get_mask("CharacterBody3D"))

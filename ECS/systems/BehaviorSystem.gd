@@ -45,7 +45,7 @@ func _physics_process(delta):
 			_handle_random(rand_comp, nav_comp, pos_comp, delta)
 
 func _is_ready_for_movement(state_comp: StateComponent) -> bool:
-	return state_comp.current_state != StateComponent.State.GATHERING
+	return state_comp.current_state in [StateComponent.State.IDLE, StateComponent.State.MOVING]
 
 func _handle_search(gath_comp: GatheringComponent, delta: float, entity: Entity):
 	gath_comp.search_cooldown -= delta
@@ -90,9 +90,8 @@ func _set_random_target(rand_comp: RandomMovementComponent, pos_comp: PositionCo
 	rand_comp.last_random_target = new_pos
 
 func _on_ready_for_movement(args: Array):
-	print("BehaviorSystem._on_ready_for_movement")
+	print("BehaviorSystem._on_ready_for_movement for entity %d" % args[0])
 	var entity_id = args[0]
-	
 	var entity = ecs_manager.get_entity_by_id(entity_id)
 	var move_comp = entity.get_component(ComponentType.get_mask("Move"))
 	move_comp.can_move = true
