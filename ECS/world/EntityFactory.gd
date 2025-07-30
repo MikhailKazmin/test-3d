@@ -7,6 +7,7 @@ var component_pool: ComponentPool
 var event_bus: EventBus
 var async_event_queue: AsyncEventQueue
 const SKELETON_PREFAB_PATH := "res://ECS/skeleton.tscn"
+var skeleton:Entity
 
 func _init(manager: ECSManager, pool: ComponentPool, bus: EventBus):
 	ecs_manager = manager
@@ -14,20 +15,21 @@ func _init(manager: ECSManager, pool: ComponentPool, bus: EventBus):
 	event_bus = bus
 
 func create_skeleton(position: Vector3) -> Entity:
-	var skeleton = ecs_manager.create_entity()
+	skeleton = ecs_manager.create_entity()
 
 	# Добавляем компоненты
 	skeleton.add_component(component_pool.get_component("State"), ComponentType.get_mask("State"))
+	skeleton.add_component(component_pool.get_component("Animation"), ComponentType.get_mask("Animation"))
+	skeleton.add_component(component_pool.get_component("Position"), ComponentType.get_mask("Position"))
+	skeleton.add_component(component_pool.get_component("CharacterBody3D"), ComponentType.get_mask("CharacterBody3D"))
+	skeleton.add_component(component_pool.get_component("Move"), ComponentType.get_mask("Move"))
+	#event_bus.subscribe("ready_for_movement", Callable(self, "_ready_for_movement"))
 	skeleton.add_component(component_pool.get_component("Navigation"), ComponentType.get_mask("Navigation"))
 	skeleton.add_component(component_pool.get_component("Gathering"), ComponentType.get_mask("Gathering"))
 	skeleton.add_component(component_pool.get_component("RandomMovement"), ComponentType.get_mask("RandomMovement"))
 	skeleton.add_component(component_pool.get_component("Formation"), ComponentType.get_mask("Formation"))
-	skeleton.add_component(component_pool.get_component("Move"), ComponentType.get_mask("Move"))
-	skeleton.add_component(component_pool.get_component("Animation"), ComponentType.get_mask("Animation"))
 	skeleton.add_component(component_pool.get_component("Rotate"), ComponentType.get_mask("Rotate"))
-	skeleton.add_component(component_pool.get_component("Position"), ComponentType.get_mask("Position"))
 	skeleton.add_component(component_pool.get_component("Velocity"), ComponentType.get_mask("Velocity"))
-	skeleton.add_component(component_pool.get_component("CharacterBody3D"), ComponentType.get_mask("CharacterBody3D"))
 
 	# Инстанцируем и добавляем визуал в корневую сцену
 	var skeleton_scene = preload(SKELETON_PREFAB_PATH).instantiate() as CharacterBody3D
@@ -36,7 +38,9 @@ func create_skeleton(position: Vector3) -> Entity:
 		return skeleton
 	ecs_manager.add_child(skeleton_scene)  # Добавляем в World
 	skeleton_scene.global_position = position
+	
 	await skeleton_scene.ready
+	
 	# Настраиваем CharacterBody3DComponent
 	var body_comp = skeleton.get_component(ComponentType.get_mask("CharacterBody3D"))
 	if body_comp:
@@ -61,6 +65,20 @@ func create_skeleton(position: Vector3) -> Entity:
 		pos_comp.position = position
 	else:
 		printerr("Position component not found for entity #%d" % skeleton.id)
-
+	
 	event_bus.emit("rise_started", [skeleton.id])
+	
+	
+	
 	return skeleton
+	
+	
+func _ready_for_movement(args: Array):
+	skeleton.add_component(component_pool.get_component("Navigation"), ComponentType.get_mask("Navigation"))
+	skeleton.add_component(component_pool.get_component("Gathering"), ComponentType.get_mask("Gathering"))
+	skeleton.add_component(component_pool.get_component("RandomMovement"), ComponentType.get_mask("RandomMovement"))
+	skeleton.add_component(component_pool.get_component("Formation"), ComponentType.get_mask("Formation"))
+	skeleton.add_component(component_pool.get_component("Rotate"), ComponentType.get_mask("Rotate"))
+	skeleton.add_component(component_pool.get_component("Velocity"), ComponentType.get_mask("Velocity"))
+
+	

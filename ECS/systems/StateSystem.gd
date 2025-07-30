@@ -6,10 +6,24 @@ var ecs_manager: ECSManager
 var event_bus: EventBus
 var required_mask: int
 
+
+func _on_set_state(args: Array):
+	var entity_id = args[0]
+	var new_state = args[1]
+	var entity = ecs_manager.get_entity_by_id(entity_id)
+	if entity:
+		var state_comp = entity.get_component(ComponentType.get_mask("State"))
+		if state_comp.current_state != new_state:
+			state_comp.current_state = new_state
+			event_bus.emit("state_changed", [entity_id, new_state])
+
 func _init(manager: ECSManager, bus: EventBus):
 	ecs_manager = manager
 	event_bus = bus
 	required_mask = ComponentType.get_mask("State") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")
+	call_deferred("_sub_events")
+
+func _sub_events() -> void:
 	event_bus.subscribe("set_state", Callable(self, "_on_set_state"))
 
 func _process(delta):
@@ -26,17 +40,6 @@ func _process(delta):
 				body_comp.label_3d.rotate_y(deg_to_rad(180))
 			if body_comp.label_3d.visible:
 				body_comp.label_3d.text = _state_to_string(state_comp.current_state)
-
-func _on_set_state(args: Array):
-	var entity_id = args[0]
-	var new_state = args[1]
-	var entity = ecs_manager.get_entity_by_id(entity_id)
-	if entity:
-		var state_comp = entity.get_component(ComponentType.get_mask("State"))
-		if state_comp.current_state != new_state:
-			state_comp.current_state = new_state
-			event_bus.emit("state_changed", [entity_id, new_state])
-			
 
 func _state_to_string(state: int) -> String:
 	match state:

@@ -5,13 +5,14 @@ class_name NavigationSystem
 var ecs_manager: ECSManager
 var required_mask: int
 
+
 func _init(manager: ECSManager):
 	ecs_manager = manager
 	required_mask = ComponentType.get_mask("Navigation") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")
 
 func _process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
-	
+
 	for entity in entities:
 		var nav_comp = entity.get_component(ComponentType.get_mask("Navigation"))
 		var body_comp = entity.get_component(ComponentType.get_mask("CharacterBody3D"))

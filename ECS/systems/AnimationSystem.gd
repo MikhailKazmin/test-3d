@@ -6,19 +6,24 @@ var ecs_manager: ECSManager
 var event_bus: EventBus
 var async_queue: AsyncEventQueue
 var required_mask: int
+var entities:Array
 
 func _init(manager: ECSManager, bus: EventBus, async_q: AsyncEventQueue):
 	ecs_manager = manager
 	event_bus = bus
 	async_queue = async_q
 	required_mask = ComponentType.get_mask("Animation") | ComponentType.get_mask("State") | ComponentType.get_mask("Move") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")
+	call_deferred("_sub_events")
+
+func _sub_events() -> void:
 	event_bus.subscribe("rise_started", Callable(self, "_on_rise_started"))
 	event_bus.subscribe("rise_completed", Callable(self, "_on_rise_completed"))
 	event_bus.subscribe("gather_resource", Callable(self, "_on_gather_resource"))
 	event_bus.subscribe("state_changed", Callable(self, "_on_state_changed"))
-
+	
+	
 func _process(delta):
-	var entities = ecs_manager.filter_entities(required_mask)
+	entities = ecs_manager.filter_entities(required_mask)
 	for entity in entities:
 		var anim_comp = entity.get_component(ComponentType.get_mask("Animation"))
 		var state_comp = entity.get_component(ComponentType.get_mask("State"))
@@ -36,7 +41,6 @@ func _process(delta):
 				_play_anim(body_comp.animation_player, anim_comp, "Idle")
 
 func _play_anim(anim_player: AnimationPlayer, anim_comp: AnimationComponent, name_anim: String):
-	print("AnimationSystem._play_anim = ", name_anim)
 	if anim_comp.last_animation != name_anim or not anim_player.is_playing():
 		anim_player.play(name_anim)
 		anim_comp.last_animation = name_anim

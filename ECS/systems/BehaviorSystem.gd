@@ -7,14 +7,20 @@ var async_queue: AsyncEventQueue
 var event_bus: EventBus
 var required_mask: int
 
+
 func _init(manager: ECSManager, async_q: AsyncEventQueue, bus: EventBus):
 	ecs_manager = manager
 	async_queue = async_q
 	event_bus = bus
 	required_mask = ComponentType.get_mask("State") | ComponentType.get_mask("Formation") | ComponentType.get_mask("Gathering") | ComponentType.get_mask("RandomMovement") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("Position")
-	event_bus.subscribe("ready_for_movement", Callable(self, "_on_ready_for_movement"))
-	event_bus.subscribe("gather_animation_finished", Callable(self, "_on_gather_animation_finished"))
 
+	call_deferred("_sub_events")
+
+func _sub_events() -> void:
+	event_bus.subscribe("ready_for_movement", Callable(self, "_on_ready_for_movement"))
+	event_bus.subscribe("gather_animation_finished", Callable(self, "_on_gather_animation_finished"))	
+	
+	
 func _physics_process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 	

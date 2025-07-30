@@ -5,6 +5,7 @@ class_name FormationSystem
 var ecs_manager: ECSManager
 var required_mask: int
 
+
 func _init(manager: ECSManager):
 	ecs_manager = manager
 	required_mask = ComponentType.get_mask("Formation") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("State")

@@ -5,6 +5,7 @@ class_name RotateSystem
 var ecs_manager: ECSManager
 var required_mask: int
 
+
 func _init(manager: ECSManager):
 	ecs_manager = manager
 	required_mask = ComponentType.get_mask("Rotate") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("State") | ComponentType.get_mask("Gathering") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")

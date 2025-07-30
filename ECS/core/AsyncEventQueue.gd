@@ -11,11 +11,9 @@ func add_async(callback: Callable, delay: float = 0.0, args: Array = []):
 		"args": args
 	}
 	queue.append(entry)
-	print("Added async task with delay %f" % delay)  # Отладка
+
 
 func _process(delta):
-	if queue.size() > 0:
-		print("AsyncQueue processing, size %d" % queue.size())  # Отладка
 	var i = 0
 	while i < queue.size():
 		var entry = queue[i]

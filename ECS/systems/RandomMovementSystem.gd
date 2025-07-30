@@ -5,18 +5,22 @@ class_name RandomMovementSystem
 var ecs_manager: ECSManager
 var required_mask: int
 
+
 func _init(manager: ECSManager):
 	ecs_manager = manager
-	required_mask = ComponentType.get_mask("RandomMovement") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("Position")
+	required_mask = ComponentType.get_mask("RandomMovement") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("Position") | ComponentType.get_mask("CharacterBody3D")
 
 func _process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 	
 	for entity in entities:
-		var rand_comp = entity.get_component(ComponentType.get_mask("RandomMovement"))
-		var nav_comp = entity.get_component(ComponentType.get_mask("Navigation"))
+		var nav_comp:NavigationComponent = entity.get_component(ComponentType.get_mask("Navigation"))
 		var pos_comp = entity.get_component(ComponentType.get_mask("Position"))
-		if nav_comp.target_position.distance_to(pos_comp.position) < 0.1:
+		var char_comp:CharacterBody3DComponent = entity.get_component(ComponentType.get_mask("CharacterBody3D"))
+		if char_comp == null: continue
+		if char_comp.nav_agent == null: continue
+		#print("pos_comp.position", pos_comp.position)
+		if char_comp.nav_agent.is_navigation_finished():
 			var min_distance = 5.0
 			var new_pos: Vector3
 			while true: 
@@ -24,4 +28,5 @@ func _process(delta):
 				if new_pos.distance_to(pos_comp.position) >= min_distance:
 					break
 			nav_comp.target_position = new_pos
+
 			
