@@ -1,4 +1,4 @@
-extends Entity
+extends Unit
 class_name Skeleton
 
 signal rise_started

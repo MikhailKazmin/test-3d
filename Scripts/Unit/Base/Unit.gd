@@ -1,5 +1,5 @@
 extends CharacterBody3D
-class_name Entity
+class_name Unit
 
 @export var component_parent: Node
 @onready var components: Dictionary = {}

@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dh7ux3canc7bl" path="res://Pref/Mag/components_char_mag.tscn" id="2_2wwxx"]
 [ext_resource type="PackedScene" uid="uid://6ii2yor2krfh" path="res://Pref/Corpse/components_char_corpse.tscn" id="3_3amdw"]
 [ext_resource type="PackedScene" uid="uid://cj113yg8dbs8" path="res://Pref/Mag/hud.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://cimsfycyutkec" path="res://Pref/Skeleton/components_char_skeleton.tscn" id="4_1xcnr"]
 [ext_resource type="Script" uid="uid://c8duduynq6vgm" path="res://Scripts/environment.gd" id="4_3pt4j"]
 [ext_resource type="PackedScene" uid="uid://d1i6vg51ekobm" path="res://Pref/Resource/StoneBig/components_resource_stoneBig.tscn" id="6_c2iwn"]
 [ext_resource type="PackedScene" uid="uid://c3g05iruk46c1" path="res://Pref/Resource/Stone/components_resource_stone.tscn" id="6_ow1sv"]
@@ -26,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bjc03efracoyc" path="res://Assets/KayKit_Skeletons/Skeleton_Rogue.fbx" id="18_mu7ye"]
 [ext_resource type="PackedScene" uid="uid://droeynrryv5ni" path="res://Assets/KayKit_Skeletons/Skeleton_Warrior.fbx" id="19_2oiod"]
 [ext_resource type="Resource" uid="uid://bjvo3sf30uegj" path="res://Resource/Pentagram/Resurrect/ResurrectEffect.tres" id="26_nyb1q"]
+[ext_resource type="Script" uid="uid://nfbq5x6il8o3" path="res://ECS/world/World.gd" id="26_xw8bv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -74,579 +74,435 @@ material = SubResource("StandardMaterial3D_h2yge")
 
 [node name="Char_Corpse" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse2" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse3" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse4" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse5" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse6" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse7" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse8" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse9" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse10" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse11" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse12" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse13" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse14" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse15" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse16" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse17" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse18" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse19" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse20" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse21" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse22" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse23" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse24" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse25" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse26" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse27" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse28" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse29" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse30" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse31" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse32" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse33" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.03908, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse34" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.15396, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse35" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.637062, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse36" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.135582, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse37" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse38" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse39" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse40" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse41" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse42" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse43" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse44" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse45" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.039078, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse46" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.15396, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse47" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.637064, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse48" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.13558, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse49" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse50" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse51" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse52" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse53" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse54" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse55" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse56" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse57" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse58" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse59" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse60" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse61" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse62" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse63" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse64" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse65" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse66" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse67" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse68" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse69" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse70" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse71" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse72" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse73" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse74" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse75" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse76" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse77" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse78" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse79" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse80" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse81" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.77683, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse82" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.891714, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse83" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.374815, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse84" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12666893, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse85" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse86" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse87" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse88" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse89" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse90" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse91" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse92" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse93" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2231693, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse94" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.108286, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse95" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625185, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse96" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.126669, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse97" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse98" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse99" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse100" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse101" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse102" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse103" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse104" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse105" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse106" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse107" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse108" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse109" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse110" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse111" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse112" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -48.0388)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse113" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse114" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse115" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse116" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -41.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse117" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse118" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse119" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse120" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -34.308197)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse121" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse122" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse123" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse124" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse125" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse126" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse127" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse128" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse129" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.849886, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse130" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.735, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse131" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2519, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse132" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.753387, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse133" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse134" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse135" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse136" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -29.5424)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse137" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse138" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse139" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse140" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -22.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse141" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.849884, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse142" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.735, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse143" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2519, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Char_Corpse144" parent="NavigationRegion3D/Corpses" groups=["Corpses"] instance=ExtResource("3_3amdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.75339, 0, -15.811798)
-new_prefab = ExtResource("4_1xcnr")
 
 [node name="Summons" type="Node3D" parent="NavigationRegion3D"]
 
@@ -897,3 +753,6 @@ mesh_instance = NodePath("../CircleMesh")
 decal_parent = NodePath(".")
 drawer = NodePath("../PentagramDrawer")
 current_effect = ExtResource("26_nyb1q")
+
+[node name="World" type="Node3D" parent="."]
+script = ExtResource("26_xw8bv")

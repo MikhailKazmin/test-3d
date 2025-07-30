@@ -1,4 +1,4 @@
-extends Entity
+extends Unit
 class_name Player
 
 @export var caster: PentagramCaster

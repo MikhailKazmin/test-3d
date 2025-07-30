@@ -1,4 +1,4 @@
-extends Entity
+extends Unit
 class_name Corpse
  
 @export var new_prefab: PackedScene  # Присвойте префаб в инспекторе

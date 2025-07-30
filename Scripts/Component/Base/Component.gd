@@ -5,10 +5,10 @@ signal component_initialized
 signal component_enabled
 signal component_disabled
 
-var entity: Entity
+var entity: Unit
 var is_active: bool = true
 
-func init(_entity: Entity) -> void:
+func init(_entity: Unit) -> void:
 	entity = _entity
 	component_initialized.emit()
 	#_setup()
