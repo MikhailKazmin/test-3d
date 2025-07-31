@@ -8,17 +8,21 @@ var required_mask: int
 
 func _init(manager: ECSManager):
 	ecs_manager = manager
-	required_mask = ComponentType.get_mask("Move") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("State") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")
+	required_mask = ComponentType.get_mask(ComponentType.Name.Move) | \
+	ComponentType.get_mask(ComponentType.Name.Navigation) | \
+	ComponentType.get_mask(ComponentType.Name.State) | \
+	ComponentType.get_mask(ComponentType.Name.CharacterBody3D) | \
+	ComponentType.get_mask(ComponentType.Name.Position)
 
 func _physics_process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 
 	for entity in entities:
-		var move_comp = entity.get_component(ComponentType.get_mask("Move"))
-		var nav_comp = entity.get_component(ComponentType.get_mask("Navigation"))
-		var state_comp = entity.get_component(ComponentType.get_mask("State"))
-		var body_comp = entity.get_component(ComponentType.get_mask("CharacterBody3D"))
-		var pos_comp = entity.get_component(ComponentType.get_mask("Position"))
+		var move_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Move))
+		var nav_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Navigation))
+		var state_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.State))
+		var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
+		var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
 		# Проверяем, что все компоненты существуют и юнит в состоянии IDLE или MOVING
 		if not move_comp or\
 			 	not body_comp or\

@@ -12,32 +12,37 @@ func _init(manager: ECSManager, async_q: AsyncEventQueue, bus: EventBus):
 	ecs_manager = manager
 	async_queue = async_q
 	event_bus = bus
-	required_mask = ComponentType.get_mask("State") | ComponentType.get_mask("Formation") | ComponentType.get_mask("Gathering") | ComponentType.get_mask("RandomMovement") | ComponentType.get_mask("Navigation") | ComponentType.get_mask("Position")
+	required_mask = ComponentType.get_mask(ComponentType.Name.State) | \
+		ComponentType.get_mask(ComponentType.Name.Formation) | \
+		ComponentType.get_mask(ComponentType.Name.Gathering) | \
+		ComponentType.get_mask(ComponentType.Name.RandomMovement) | \
+		ComponentType.get_mask(ComponentType.Name.Navigation) | \
+		ComponentType.get_mask(ComponentType.Name.Position)
 
 	call_deferred("_sub_events")
 
 func _sub_events() -> void:
-	event_bus.subscribe("ready_for_movement", Callable(self, "_on_ready_for_movement"))
-	event_bus.subscribe("gather_animation_finished", Callable(self, "_on_gather_animation_finished"))	
+	event_bus.subscribe(EventBus.Name.ReadyForMovement, Callable(self, "_on_ready_for_movement"))
+	event_bus.subscribe(EventBus.Name.GatherAnimationFinished, Callable(self, "_on_gather_animation_finished"))	
 	
 	
 func _physics_process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 	
 	for entity in entities:
-		var state_comp = entity.get_component(ComponentType.get_mask("State"))
+		var state_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.State))
 		if not _is_ready_for_movement(state_comp):
 			continue
-		var form_comp = entity.get_component(ComponentType.get_mask("Formation"))
-		var gath_comp = entity.get_component(ComponentType.get_mask("Gathering"))
-		var rand_comp = entity.get_component(ComponentType.get_mask("RandomMovement"))
-		var nav_comp = entity.get_component(ComponentType.get_mask("Navigation"))
-		var pos_comp = entity.get_component(ComponentType.get_mask("Position"))
+		var form_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Formation))
+		var gath_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Gathering))
+		var rand_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.RandomMovement))
+		var nav_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Navigation))
+		var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
 		if form_comp.formation_target != Vector3.ZERO:
 			nav_comp.target_position = form_comp.formation_target
 			if nav_comp.target_position.distance_to(pos_comp.position) < 0.1:
 				form_comp.formation_target = Vector3.ZERO
-				event_bus.emit("set_state", [entity.id, StateComponent.State.IDLE])
+				event_bus.emit(EventBus.Name.SetState, [entity.id, StateComponent.State.IDLE])
 		elif gath_comp.current_resource and is_instance_valid(gath_comp.current_resource):
 			nav_comp.target_position = gath_comp.current_resource.global_position + gath_comp.assigned_slot_offset
 		else:
@@ -63,7 +68,7 @@ func _handle_search(gath_comp: GatheringComponent, delta: float, entity: Entity)
 func _find_nearest_resource(entity: Entity, gath_comp: GatheringComponent) -> Node:
 	var nearest: Node = null
 	var nearest_dist = gath_comp.gather_radius
-	var pos_comp = entity.get_component(ComponentType.get_mask("Position"))
+	var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
 	var gatherables = get_tree().get_nodes_in_group("Gatherables")
 	for node in gatherables:
 		if node is Node:  # Gatherable
@@ -93,7 +98,7 @@ func _on_ready_for_movement(args: Array):
 	print("BehaviorSystem._on_ready_for_movement for entity %d" % args[0])
 	var entity_id = args[0]
 	var entity = ecs_manager.get_entity_by_id(entity_id)
-	var move_comp = entity.get_component(ComponentType.get_mask("Move"))
+	var move_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Move))
 	move_comp.can_move = true
 
 func _on_gather_animation_finished(args: Array):
@@ -101,7 +106,7 @@ func _on_gather_animation_finished(args: Array):
 	var resource = args[1]
 	
 	var entity = ecs_manager.get_entity_by_id(entity_id)
-	var gath_comp = entity.get_component(ComponentType.get_mask("Gathering"))
+	var gath_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Gathering))
 	gath_comp.is_gathering = false
 	gath_comp.gather_cooldown = gath_comp.GATHER_COOLDOWN_TIME
-	event_bus.emit("set_state", [entity_id, StateComponent.State.IDLE])
+	event_bus.emit(EventBus.Name.SetState, [entity_id, StateComponent.State.IDLE])

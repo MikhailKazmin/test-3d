@@ -1,2 +1,2 @@
-extends BaseComponent
+extends BaseComponentComposition
 class_name BaseMove

@@ -1,4 +1,4 @@
-extends BaseComponent
+extends BaseComponentComposition
 class_name SkeletonFormation
 
 var formation_target: Vector3 = Vector3.ZERO

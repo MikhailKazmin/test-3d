@@ -19,7 +19,9 @@ func _process(delta):
 		var entry = queue[i]
 		entry["timer"] -= delta
 		if entry["timer"] <= 0:
-			entry["callback"].callv(entry["args"])
+			print("callback = ",entry["callback"],
+				" - args = ",entry["args"])
+			entry["callback"].call(entry["args"])
 			queue.remove_at(i)
 		else:
 			i += 1

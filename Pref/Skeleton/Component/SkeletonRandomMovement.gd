@@ -1,4 +1,4 @@
-extends BaseComponent
+extends BaseComponentComposition
 class_name SkeletonRandomMovement
 
 var _last_random_target: Vector3 = Vector3.INF

@@ -1,5 +1,5 @@
 # base_component.gd
-class_name BaseComponent extends Node
+class_name BaseComponentComposition extends Node
 
 signal component_initialized
 signal component_enabled

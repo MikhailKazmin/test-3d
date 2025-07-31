@@ -1,4 +1,4 @@
-extends BaseComponent
+extends BaseComponentComposition
 class_name SkeletonRotate
 
 @export var rotation_speed: float = 8.0

@@ -747,12 +747,13 @@ script = ExtResource("10_3pt4j")
 points_count = 32
 mesh_instance = NodePath("../CircleMesh")
 
-[node name="PentagramCaster" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance", "decal_parent", "drawer")]
+[node name="PentagramCaster" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance", "decal_parent", "drawer", "world")]
 script = ExtResource("11_mxd2g")
 mesh_instance = NodePath("../CircleMesh")
 decal_parent = NodePath(".")
 drawer = NodePath("../PentagramDrawer")
 current_effect = ExtResource("26_nyb1q")
+world = NodePath("../World")
 
 [node name="World" type="Node3D" parent="."]
 script = ExtResource("26_xw8bv")

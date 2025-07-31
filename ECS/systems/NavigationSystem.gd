@@ -8,15 +8,17 @@ var required_mask: int
 
 func _init(manager: ECSManager):
 	ecs_manager = manager
-	required_mask = ComponentType.get_mask("Navigation") | ComponentType.get_mask("CharacterBody3D") | ComponentType.get_mask("Position")
+	required_mask = ComponentType.get_mask(ComponentType.Name.Navigation) | \
+	ComponentType.get_mask(ComponentType.Name.CharacterBody3D) | \
+	ComponentType.get_mask(ComponentType.Name.Position)
 
 func _process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 
 	for entity in entities:
-		var nav_comp = entity.get_component(ComponentType.get_mask("Navigation"))
-		var body_comp = entity.get_component(ComponentType.get_mask("CharacterBody3D"))
-		var pos_comp = entity.get_component(ComponentType.get_mask("Position"))
+		var nav_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Navigation))
+		var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
+		var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
 		if body_comp.character_body_3d != null:
 			body_comp.nav_agent.target_position = nav_comp.target_position
 			if body_comp.nav_agent.is_navigation_finished():

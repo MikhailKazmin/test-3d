@@ -1,4 +1,4 @@
-extends BaseComponent
+extends BaseComponentComposition
 class_name SkeletonNavigation
 
 @onready var nav_agent: NavigationAgent3D = $"../../NavigationAgent3D"

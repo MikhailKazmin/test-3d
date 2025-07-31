@@ -1,5 +1,5 @@
 # components/StateComponent.gd
-extends Resource
+extends BaseComponent
 class_name StateComponent
 
 enum State {
@@ -14,3 +14,8 @@ enum State {
 
 var current_state: State = State.RISING
 var is_selected: bool = false
+
+
+func reset():
+	current_state = State.RISING
+	is_selected = false

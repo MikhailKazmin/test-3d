@@ -14,23 +14,23 @@ func _ready() -> void:
 	"attack": $Components/PlayerAttack
 }
 	for component in components.values():
-		if component is BaseComponent:
+		if component is BaseComponentComposition:
 			component.init(self)
 	for component in components.values():
-		if component is BaseComponent:
+		if component is BaseComponentComposition:
 			component._setup()
 
 func _process(delta: float) -> void:
 	for component in components.values():
-		if component is BaseComponent and component.is_active:
+		if component is BaseComponentComposition and component.is_active:
 			component.process(delta)
 
 func _physics_process(delta: float) -> void:
 	for component in components.values():
-		if component is BaseComponent and component.is_active:
+		if component is BaseComponentComposition and component.is_active:
 			component.physics_process(delta)
 
 func _input(event: InputEvent) -> void:
 	for component in components.values():
-		if component is BaseComponent and component.is_active:
+		if component is BaseComponentComposition and component.is_active:
 			component._input(event)

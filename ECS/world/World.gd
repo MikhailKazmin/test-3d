@@ -1,4 +1,6 @@
 extends Node3D
+class_name World
+
 
 @onready var ecs_manager = preload("res://ECS/core/ECSManager.gd").new()
 @onready var async_queue = preload("res://ECS/core/AsyncEventQueue.gd").new()
@@ -9,6 +11,13 @@ extends Node3D
 @onready var entity_factory = EntityFactory.new(ecs_manager, component_pool, event_bus)
 
 func _ready():
+	register_core()
+	
+	register_components()
+	
+	register_systems()
+
+func register_core():
 	ecs_manager.name = "ecs_manager"
 	async_queue.name = "async_queue"
 	system_registry.name = "system_registry"
@@ -24,21 +33,27 @@ func _ready():
 	add_child(component_pool)
 	add_child(ecs_logger)
 	add_child(entity_factory)
-
+	
+func register_components():
 	# Регистрация типов
-	ComponentType.register_type("State")
-	ComponentType.register_type("Navigation")
-	ComponentType.register_type("Gathering")
-	ComponentType.register_type("RandomMovement")
-	ComponentType.register_type("Formation")
-	ComponentType.register_type("Move")
-	ComponentType.register_type("Animation")
-	ComponentType.register_type("Rotate")
-	ComponentType.register_type("Position")
-	ComponentType.register_type("CharacterBody3D")
+	ComponentType.register_type(ComponentType.Name.AI)
+	ComponentType.register_type(ComponentType.Name.Animation)
+	ComponentType.register_type(ComponentType.Name.CharacterBody3D)
+	ComponentType.register_type(ComponentType.Name.Formation)
+	ComponentType.register_type(ComponentType.Name.Gathering)
+	ComponentType.register_type(ComponentType.Name.Input)
+	ComponentType.register_type(ComponentType.Name.MeshInstance)
+	ComponentType.register_type(ComponentType.Name.Move)
+	ComponentType.register_type(ComponentType.Name.Navigation)
+	ComponentType.register_type(ComponentType.Name.Position)
+	ComponentType.register_type(ComponentType.Name.RandomMovement)
+	ComponentType.register_type(ComponentType.Name.Rotate)
+	ComponentType.register_type(ComponentType.Name.State)
+
 
 	print("Registered component types: ", ComponentType.REGISTRY)
-	await get_tree().create_timer(0.5).timeout
+	
+func register_systems():
 	# Регистрация систем
 	var sys_StateSystem = preload("res://ECS/systems/StateSystem.gd")
 	var sys_BehaviorSystem = preload("res://ECS/systems/BehaviorSystem.gd")
@@ -59,8 +74,9 @@ func _ready():
 	system_registry.register_system(sys_AnimationSystem.new(ecs_manager, event_bus, async_queue),"AnimationSystem")
 	system_registry.register_system(sys_FormationSystem.new(ecs_manager),"FormationSystem")
 	system_registry.register_system(sys_RandomMovementSystem.new(ecs_manager),"RandomMovementSystem")
-	await get_tree().create_timer(1).timeout
-	# Создание скелета
-	for i in range(0, 10):
-		var skeleton = await entity_factory.create_skeleton(Vector3(i * 1.5, -2, 0))
+
+
+func create_entity(dict:Dictionary):	# Создание скелета
+	for i in dict:
+		var skeleton = await entity_factory.create_skeleton(dict[i])
 		ecs_logger.log_entity(skeleton, "Created")

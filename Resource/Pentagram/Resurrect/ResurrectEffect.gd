@@ -1,7 +1,7 @@
 extends Object
 class_name ResurrectEffect
 
-func apply(center: Vector3, radius: float, caller: Node) -> void:
+func apply(center: Vector3, radius: float, caller: Node, world: World) -> void:
 	var corpses = caller.get_tree().get_nodes_in_group("Corpses")
 	var to_revive: Array = []
 
@@ -17,10 +17,9 @@ func apply(center: Vector3, radius: float, caller: Node) -> void:
 		tween = tween.parallel()
 		tween.tween_property(corpse, "position:y", corpse.position.y - 2.0, 1.0)
 	await tween.finished
-
-	for corpse in to_revive:
-		if corpse.has_method("get_new_prefab"):
-			var new_instance = corpse.get_new_prefab().instantiate()
-			new_instance.global_position = corpse.global_position
-			caller.get_tree().current_scene.add_child(new_instance)
-		corpse.queue_free()
+	
+	var dict:Dictionary = {}
+	for i: int in range(0, to_revive.size()):
+		dict[i] = to_revive[i].global_position
+		to_revive[i].queue_free()
+	world.create_entity(dict)
