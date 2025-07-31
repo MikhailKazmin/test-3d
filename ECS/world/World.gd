@@ -35,7 +35,6 @@ func _ready():
 	ComponentType.register_type("Animation")
 	ComponentType.register_type("Rotate")
 	ComponentType.register_type("Position")
-	ComponentType.register_type("Velocity")
 	ComponentType.register_type("CharacterBody3D")
 
 	print("Registered component types: ", ComponentType.REGISTRY)

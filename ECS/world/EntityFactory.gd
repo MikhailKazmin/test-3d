@@ -31,7 +31,6 @@ func create_skeleton(position: Vector3) -> Entity:
 	skeleton.add_component(component_pool.get_component("RandomMovement"), ComponentType.get_mask("RandomMovement"))
 	skeleton.add_component(component_pool.get_component("Formation"), ComponentType.get_mask("Formation"))
 	skeleton.add_component(component_pool.get_component("Rotate"), ComponentType.get_mask("Rotate"))
-	skeleton.add_component(component_pool.get_component("Velocity"), ComponentType.get_mask("Velocity"))
 
 	# Инстанцируем и добавляем визуал в корневую сцену
 	var skeleton_scene = preload(SKELETON_PREFAB_PATH).instantiate() as CharacterBody3D

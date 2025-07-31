@@ -21,8 +21,10 @@ func _process(delta):
 			body_comp.nav_agent.target_position = nav_comp.target_position
 			if body_comp.nav_agent.is_navigation_finished():
 				nav_comp.direction = Vector3.ZERO
+
 			else:
 				var next_pos = body_comp.nav_agent.get_next_path_position()
 				nav_comp.direction = (next_pos - pos_comp.position).normalized()
 				nav_comp.direction.y = 0
+
 			

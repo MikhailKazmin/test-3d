@@ -7,15 +7,8 @@ var event_bus: EventBus
 var required_mask: int
 
 
-func _on_set_state(args: Array):
-	var entity_id = args[0]
-	var new_state = args[1]
-	var entity = ecs_manager.get_entity_by_id(entity_id)
-	if entity:
-		var state_comp = entity.get_component(ComponentType.get_mask("State"))
-		if state_comp.current_state != new_state:
-			state_comp.current_state = new_state
-			event_bus.emit("state_changed", [entity_id, new_state])
+
+
 
 func _init(manager: ECSManager, bus: EventBus):
 	ecs_manager = manager
@@ -25,7 +18,18 @@ func _init(manager: ECSManager, bus: EventBus):
 
 func _sub_events() -> void:
 	event_bus.subscribe("set_state", Callable(self, "_on_set_state"))
-
+	
+func _on_set_state(entity_id, new_state):
+	var entity = ecs_manager.get_entity_by_id(entity_id)
+	if entity:
+		var state_comp = entity.get_component(ComponentType.get_mask("State"))
+		var body_comp = entity.get_component(ComponentType.get_mask("CharacterBody3D"))
+		if state_comp.current_state != new_state:
+			state_comp.current_state = new_state
+			event_bus.emit("state_changed", [entity_id, new_state])
+			if body_comp.label_3d.visible:
+				body_comp.label_3d.text = _state_to_string(state_comp.current_state)
+				
 func _process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 	
@@ -38,8 +42,7 @@ func _process(delta):
 			if camera:
 				body_comp.label_3d.look_at(camera.global_position, Vector3.UP)
 				body_comp.label_3d.rotate_y(deg_to_rad(180))
-			if body_comp.label_3d.visible:
-				body_comp.label_3d.text = _state_to_string(state_comp.current_state)
+
 
 func _state_to_string(state: int) -> String:
 	match state:

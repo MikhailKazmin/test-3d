@@ -16,16 +16,16 @@ func emit(event_name: String, args: Array = []):
 				handler.callv(args)
 
 func subscribe(event_name: String, handler: Callable):
-	print("subscribe = ",event_name,
-		" - object = ",handler.get_object(),
-		" - method = ",handler.get_method())
+	#print("subscribe = ",event_name,
+		#" - object = ",handler.get_object(),
+		#" - method = ",handler.get_method())
 	if not handlers.has(event_name):
 		handlers[event_name] = []
 	handlers[event_name].append(handler)
 
 func unsubscribe(event_name: String, handler: Callable):
 	if handlers.has(event_name):
-		print("unsubscribe = ",event_name,
-			" - object = ",handler.get_object(),
-			" - method = ",handler.get_method())
+		#print("unsubscribe = ",event_name,
+			#" - object = ",handler.get_object(),
+			#" - method = ",handler.get_method())
 		handlers[event_name].erase(handler)

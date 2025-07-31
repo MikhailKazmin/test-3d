@@ -46,12 +46,12 @@ func _play_anim(anim_player: AnimationPlayer, anim_comp: AnimationComponent, nam
 		anim_comp.last_animation = name_anim
 
 func _on_rise_started(args: Array):
-	print("AnimationSystem._on_rise_started")
+	#print("AnimationSystem._on_rise_started")
 	var entity_id = args[0]
 	async_queue.add_async(Callable(self, "_rise_tween"), 0.0, [entity_id])
 
 func _rise_tween(entity_id: int):
-	print("AnimationSystem._rise_tween")
+	#print("AnimationSystem._rise_tween")
 	var entity = ecs_manager.get_entity_by_id(entity_id)
 	var body_comp = entity.get_component(ComponentType.get_mask("CharacterBody3D"))
 	var tween = create_tween()
@@ -60,7 +60,7 @@ func _rise_tween(entity_id: int):
 	event_bus.emit("rise_completed", [entity_id])
 
 func _on_rise_completed(args: Array):
-	print("AnimationSystem._on_rise_completed")
+	#print("AnimationSystem._on_rise_completed")
 	var entity_id = args[0]
 	async_queue.add_async(Callable(self, "_start_death_pose"), 0.0, [entity_id])
 
@@ -75,7 +75,7 @@ func _start_death_pose(entity_id: int):
 	print("AnimationSystem._start_death_pose")
 
 func _start_stand_up(entity_id: int):
-	print("AnimationSystem._start_stand_up")
+	#print("AnimationSystem._start_stand_up")
 	event_bus.emit("set_state", [entity_id, StateComponent.State.STANDING_UP])
 	var entity = ecs_manager.get_entity_by_id(entity_id)
 	var anim_comp = entity.get_component(ComponentType.get_mask("Animation"))
@@ -86,7 +86,7 @@ func _start_stand_up(entity_id: int):
 	_complete_sequence(entity_id)
 
 func _complete_sequence(entity_id: int):
-	print("AnimationSystem._complete_sequence")
+	#print("AnimationSystem._complete_sequence")
 	event_bus.emit("set_state", [entity_id, StateComponent.State.IDLE])
 	var entity = ecs_manager.get_entity_by_id(entity_id)
 	var anim_comp = entity.get_component(ComponentType.get_mask("Animation"))

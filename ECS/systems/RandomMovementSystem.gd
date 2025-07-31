@@ -20,9 +20,6 @@ func _process(delta):
 		var state_comp = entity.get_component(ComponentType.get_mask("State"))
 		if char_comp == null or char_comp.nav_agent == null:
 			continue
-		# Проверяем, что юнит в состоянии IDLE
-		if state_comp.current_state != StateComponent.State.IDLE:
-			continue
 		if char_comp.nav_agent.is_navigation_finished():
 			var min_distance = 5.0
 			var new_pos: Vector3
@@ -31,5 +28,6 @@ func _process(delta):
 				if new_pos.distance_to(pos_comp.position) >= min_distance:
 					break
 			nav_comp.target_position = new_pos
+
 
 			
