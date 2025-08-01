@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://6fq228vgppjm" path="res://Pref/Resource/StoneBig/Model/Rock_1_D_Color1.fbx" id="2_vkecc"]
 [ext_resource type="Script" uid="uid://bssk3lm6t3i7l" path="res://Pref/Resource/Stone/Component/State.gd" id="3_u1gyf"]
 [ext_resource type="Script" uid="uid://dpncbpgvbfj4q" path="res://Pref/Resource/Stone/Component/Interaction.gd" id="4_c5axy"]
-[ext_resource type="Texture2D" uid="uid://xqi44ega515u" path="res://Pref/Mag/pentagram_gather_mask.png" id="5_c5axy"]
+[ext_resource type="Texture2D" uid="uid://xqi44ega515u" path="res://Sprites/pentagram_gather_mask.png" id="5_c5axy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ph011"]
 size = Vector3(2.5519547, 2.2980735, 3.2257845)

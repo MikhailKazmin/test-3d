@@ -1,8 +1,6 @@
 extends Unit
 class_name Player
 
-@export var caster: PentagramCaster
-@export var available_pentagram_effects: Array[PentagramEffect]
 @export var pentagram_wheel: PentagramWheel  # Ссылка на колесо выбора
 
 func _ready() -> void:

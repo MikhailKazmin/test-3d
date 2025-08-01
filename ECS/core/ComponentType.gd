@@ -27,6 +27,11 @@ enum Name
 	Position,
 	RandomMovement,
 	Rotate,
-	State
+	State,
+	Corpse,
+	Effect,
+	Gatherable,
+	ResourceState,
+	Mark
 }
 	

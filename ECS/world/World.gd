@@ -10,7 +10,13 @@ class_name World
 @onready var ecs_logger = preload("res://ECS/core/ECSLogger.gd").new()
 @onready var entity_factory = EntityFactory.new(ecs_manager, component_pool, event_bus)
 
+@onready var formation_effect_system = preload("res://ECS/systems/FormationEffectSystem.gd").new(ecs_manager)
+@onready var gather_mark_effect_system = preload("res://ECS/systems/GatherMarkEffectSystem.gd").new(ecs_manager)
+@onready var skeleton_mark_effect_system = preload("res://ECS/systems/SkeletonMarkEffectSystem.gd").new(ecs_manager)
+
+
 func _ready():
+	
 	register_core()
 	
 	register_components()
@@ -25,6 +31,9 @@ func register_core():
 	component_pool.name = "component_pool"
 	ecs_logger.name = "ecs_logger"
 	entity_factory.name = "entity_factory"
+	formation_effect_system.name = "formation_effect_system"
+	gather_mark_effect_system.name = "gather_mark_effect_system"
+	skeleton_mark_effect_system.name = "skeleton_mark_effect_system"
 	
 	add_child(ecs_manager)
 	add_child(async_queue)
@@ -33,6 +42,9 @@ func register_core():
 	add_child(component_pool)
 	add_child(ecs_logger)
 	add_child(entity_factory)
+	add_child(formation_effect_system)
+	add_child(gather_mark_effect_system)
+	add_child(skeleton_mark_effect_system)
 	
 func register_components():
 	# Регистрация типов
@@ -49,7 +61,11 @@ func register_components():
 	ComponentType.register_type(ComponentType.Name.RandomMovement)
 	ComponentType.register_type(ComponentType.Name.Rotate)
 	ComponentType.register_type(ComponentType.Name.State)
-
+	ComponentType.register_type(ComponentType.Name.Effect)
+	ComponentType.register_type(ComponentType.Name.Corpse)
+	ComponentType.register_type(ComponentType.Name.Gatherable)
+	ComponentType.register_type(ComponentType.Name.ResourceState)
+	ComponentType.register_type(ComponentType.Name.Mark)
 
 	print("Registered component types: ", ComponentType.REGISTRY)
 	
@@ -80,3 +96,12 @@ func create_entity(dict:Dictionary):	# Создание скелета
 	for i in dict:
 		var skeleton = await entity_factory.create_skeleton(dict[i])
 		ecs_logger.log_entity(skeleton, "Created")
+
+
+func get_available_effects() -> Array:
+	return [
+		{"type": "resurrect", "name": "Воскрешение", "texture_wheel": preload("res://Sprites/pentagram_resurrect_full.png")},
+		{"type": "formation", "name": "Формация", "texture_wheel": preload("res://Sprites/pentagram_summon_target_full.png")},
+		{"type": "gather_mark", "name": "Пометить ресурсы", "texture_wheel": preload("res://Sprites/pentagram_gather_full.png")},
+		{"type": "skeleton_mark", "name": "Выделить скелетов", "texture_wheel": preload("res://Sprites/pentagram_summon_select_full.png")},
+	]
