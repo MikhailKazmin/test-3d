@@ -1,6 +1,10 @@
 extends Node3D
 class_name World
 
+@export var summons:Node3D
+@export var enemies:Node3D
+@export var corpses:Node3D
+@export var gathable:Node3D
 
 @onready var ecs_manager = preload("res://ECS/core/ECSManager.gd").new()
 @onready var async_queue = preload("res://ECS/core/AsyncEventQueue.gd").new()
@@ -16,6 +20,9 @@ func _ready():
 	register_components()
 	
 	register_systems()
+
+	entity_factory.init_all_corpses_in_ecs()
+	entity_factory.init_all_gatherables_in_ecs()
 
 func register_core():
 	ecs_manager.name = "ecs_manager"
@@ -41,6 +48,7 @@ func register_components():
 	ComponentType.register_type(ComponentType.Name.CharacterBody3D)
 	ComponentType.register_type(ComponentType.Name.Formation)
 	ComponentType.register_type(ComponentType.Name.Gathering)
+	ComponentType.register_type(ComponentType.Name.Gatherable)
 	ComponentType.register_type(ComponentType.Name.Input)
 	ComponentType.register_type(ComponentType.Name.MeshInstance)
 	ComponentType.register_type(ComponentType.Name.Move)
@@ -72,7 +80,7 @@ func register_systems():
 	system_registry.register_system(sys_MoveSystem.new(ecs_manager),"MoveSystem")
 	system_registry.register_system(sys_RotateSystem.new(ecs_manager),"RotateSystem")
 	system_registry.register_system(sys_AnimationSystem.new(ecs_manager, event_bus, async_queue),"AnimationSystem")
-	system_registry.register_system(sys_FormationSystem.new(ecs_manager),"FormationSystem")
+	system_registry.register_system(sys_FormationSystem.new(ecs_manager,self),"FormationSystem")
 	system_registry.register_system(sys_RandomMovementSystem.new(ecs_manager),"RandomMovementSystem")
 
 

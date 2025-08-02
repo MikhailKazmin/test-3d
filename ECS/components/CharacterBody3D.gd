@@ -6,13 +6,10 @@ var character_body_3d: CharacterBody3D = null
 var nav_agent: NavigationAgent3D = null
 var animation_player: AnimationPlayer = null
 var rig: Node3D = null
-var label_3d: Label3D = null
-var mark: Sprite3D = null
+
 
 func reset():
 	character_body_3d = null
 	nav_agent = null
 	animation_player = null
 	rig = null
-	label_3d = null
-	mark = null

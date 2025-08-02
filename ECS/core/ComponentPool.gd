@@ -1,4 +1,4 @@
-# ecs/ComponentPool.gd
+# core/ComponentPool.gd
 extends Node
 class_name ComponentPool
 
@@ -32,6 +32,8 @@ func get_string_componentType_name(Name: ComponentType.Name):
 			return "Formation"
 		ComponentType.Name.Gathering:
 			return "Gathering"
+		ComponentType.Name.Gatherable:
+			return "Gatherable"
 		ComponentType.Name.Input:
 			return "Input"
 		ComponentType.Name.MeshInstance:

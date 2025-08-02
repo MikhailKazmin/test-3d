@@ -56,28 +56,46 @@ func _handle_search(gath_comp: GatheringComponent, delta: float, entity: Entity)
 	gath_comp.search_cooldown -= delta
 	if gath_comp.search_cooldown <= 0:
 		gath_comp.current_resource = _find_nearest_resource(entity, gath_comp)
+		# Если нашли ресурс и можем занять слот — можно добавить свою логику
+		# Например, если нужно обработать assign slot (оставь, если реализовано в ECS)
 		if gath_comp.current_resource:
-			var res_state = gath_comp.current_resource.get("state")  # Предполагаем ResourceState component
-			if res_state and res_state.can_add_gatherer():
-				gath_comp.assigned_slot_offset = res_state.add_gatherer(entity)
+			var res_comp = gath_comp.current_resource.get_component(ComponentType.get_mask(ComponentType.Name.Gatherable))
+			if res_comp and res_comp.can_add_gatherer():  # Если реализовано
+				gath_comp.assigned_slot_offset = res_comp.add_gatherer(entity)
 			else:
 				gath_comp.current_resource = null
 				gath_comp.assigned_slot_offset = Vector3.ZERO
-		gath_comp.search_cooldown = gath_comp.SEARCH_INTERVAL
+	gath_comp.search_cooldown = gath_comp.SEARCH_INTERVAL
 
-func _find_nearest_resource(entity: Entity, gath_comp: GatheringComponent) -> Node:
-	var nearest: Node = null
+func _find_nearest_resource(entity: Entity, gath_comp: GatheringComponent) -> Entity:
+	var nearest: Entity = null
 	var nearest_dist = gath_comp.gather_radius
 	var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
-	var gatherables = get_tree().get_nodes_in_group("Gatherables")
-	for node in gatherables:
-		if node is Node:  # Gatherable
-			var res_state = node.get("state")
-			if res_state and not res_state.is_depleted and res_state.can_add_gatherer() and res_state.is_marked:
-				var dist = pos_comp.position.distance_to(node.global_position)
-				if dist < nearest_dist:
-					nearest = node
-					nearest_dist = dist
+	if not pos_comp:
+		return null
+
+	# Ищем все ресурсы с GatherableComponent и PositionComponent
+	var required_mask = ComponentType.get_mask(ComponentType.Name.Gatherable) | ComponentType.get_mask(ComponentType.Name.Position)
+	var gatherables = ecs_manager.filter_entities(required_mask)
+
+	for resource_entity in gatherables:
+		var res_comp = resource_entity.get_component(ComponentType.get_mask(ComponentType.Name.Gatherable))
+		var res_pos_comp = resource_entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
+		if not res_comp or not res_pos_comp:
+			continue
+
+		if res_comp.is_depleted:
+			continue
+		if not res_comp.is_marked:
+			continue
+		if not res_comp.can_add_gatherer():  # если реализуешь логику слотов — раскомментируй
+			continue
+
+		var dist = pos_comp.position.distance_to(res_pos_comp.position)
+		if dist < nearest_dist:
+			nearest = resource_entity
+			nearest_dist = dist
+
 	return nearest
 
 func _handle_random(rand_comp: RandomMovementComponent, nav_comp: NavigationComponent, pos_comp: PositionComponent, delta: float):

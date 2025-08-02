@@ -80,7 +80,7 @@ func _start_death_pose(args: Array):
 	var anim_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Animation))
 	var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
 	anim_comp.current_phase = "death_pose"
-	_play_anim(body_comp.animation_player, anim_comp, "Death_A_Pose")
+	_play_anim(body_comp.animation_player, anim_comp, "Lie_Pose")
 	async_queue.add_async(Callable(self, "_start_stand_up"), 2.0, [entity_id])
 	print("AnimationSystem._start_death_pose")
 

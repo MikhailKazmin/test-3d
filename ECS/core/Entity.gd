@@ -1,5 +1,5 @@
-# ecs/Entity.gd
-extends Node
+# core/Entity.gd
+extends Object
 class_name Entity
 
 var id: int = -1
@@ -7,6 +7,10 @@ var components: Dictionary = {}
 var component_mask: int = 0
 var ecs_manager: ECSManager = null
 
+func _init(_id: int, _ecs_manager: ECSManager):
+	id = _id
+	ecs_manager = _ecs_manager
+	
 func add_component(component: Resource, type_mask: int) -> void:
 	if type_mask == 0:
 		printerr("Warning: Adding component with mask 0 for entity #%d" % id)

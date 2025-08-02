@@ -1,7 +1,8 @@
 extends BaseComponent
 class_name GatheringComponent
 
-var current_resource: Node = null  # Gatherable
+# Параметры для gatherer-юнитов
+var current_resource: Entity = null      # Для gatherer: к какому ресурсу прикреплён (если компонент будет у юнита)
 var gather_radius: float = 12.0
 var is_gathering: bool = false
 var search_cooldown: float = 0.0
@@ -10,7 +11,9 @@ var assigned_slot_offset: Vector3 = Vector3.ZERO
 var SEARCH_INTERVAL: float = 1.0
 
 func reset():
-	current_resource = null  # Gatherable
+
+	# Для gatherer-юнита (может не использоваться для ресурса)
+	current_resource = null
 	gather_radius = 12.0
 	is_gathering = false
 	search_cooldown = 0.0

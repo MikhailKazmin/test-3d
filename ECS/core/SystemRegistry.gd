@@ -1,4 +1,4 @@
-# ecs/SystemRegistry.gd
+# core/SystemRegistry.gd
 extends Node
 class_name SystemRegistry
 

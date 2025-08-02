@@ -1,4 +1,4 @@
-# ecs/ECSLogger.gd
+# core/ECSLogger.gd
 extends Node
 class_name ECSLogger
 

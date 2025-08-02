@@ -28,25 +28,23 @@ func _on_set_state(args: Array):
 	var entity = ecs_manager.get_entity_by_id(entity_id)
 	if entity:
 		var state_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.State))
-		var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
 		if state_comp.current_state != new_state:
 			state_comp.current_state = new_state
 			event_bus.emit(EventBus.Name.StateChanged, [entity_id, new_state])
-			if body_comp.label_3d.visible:
-				body_comp.label_3d.text = _state_to_string(state_comp.current_state)
+			if state_comp.label_3d != null:
+				if state_comp.label_3d.visible:
+					state_comp.label_3d.text = _state_to_string(state_comp.current_state)
 				
 func _process(delta):
 	var entities = ecs_manager.filter_entities(required_mask)
 	
 	for entity in entities:
 		var state_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.State))
-		var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
-		var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
-		if body_comp.label_3d:
+		if state_comp.label_3d:
 			var camera = get_viewport().get_camera_3d()
 			if camera:
-				body_comp.label_3d.look_at(camera.global_position, Vector3.UP)
-				body_comp.label_3d.rotate_y(deg_to_rad(180))
+				state_comp.label_3d.look_at(camera.global_position, Vector3.UP)
+				state_comp.label_3d.rotate_y(deg_to_rad(180))
 
 
 func _state_to_string(state: int) -> String:

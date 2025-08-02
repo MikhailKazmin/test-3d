@@ -4,10 +4,11 @@ class_name FormationSystem
 
 var ecs_manager: ECSManager
 var required_mask: int
+var world: World
 
-
-func _init(manager: ECSManager):
+func _init(manager: ECSManager, _world: World):
 	ecs_manager = manager
+	world = _world
 	required_mask = ComponentType.get_mask(ComponentType.Name.Formation) | \
 	ComponentType.get_mask(ComponentType.Name.Navigation) | \
 	 ComponentType.get_mask(ComponentType.Name.State)
@@ -24,4 +25,4 @@ func _process(delta):
 			var body_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.CharacterBody3D))
 			if body_comp and body_comp.nav_agent.is_navigation_finished():
 				form_comp.formation_target = Vector3.ZERO
-				ecs_manager.event_bus.emit("set_state", [entity.id, StateComponent.State.IDLE])
+				world.event_bus.emit(EventBus.Name.SetState, [entity.id, StateComponent.State.IDLE])

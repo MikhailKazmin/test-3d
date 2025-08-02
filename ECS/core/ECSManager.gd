@@ -1,25 +1,21 @@
-# ecs/ECSManager.gd
+# core/ECSManager.gd
 extends Node
 class_name ECSManager
 
-var entities: Array[Entity] = []
-var archetypes: Dictionary = {}  # mask:int -> Array[Entity]
+var entities: Dictionary = {}
+var archetypes: Dictionary = {}
 var last_entity_id: int = 0
 
 func create_entity() -> Entity:
-	var entity = preload("res://ECS/core/Entity.gd").new()
-	entity.ecs_manager = self
-	entity.id = last_entity_id
+	var entity = Entity.new(last_entity_id, self)
 	last_entity_id += 1
-	entities.append(entity)
-	add_child(entity)
+	entities[entity.id] = entity
 	return entity
 
 func remove_entity(entity: Entity) -> void:
 	entities.erase(entity)
 	for arr in archetypes.values():
 		arr.erase(entity)
-	entity.queue_free()
 
 func _on_component_changed(entity: Entity) -> void:
 	for arr in archetypes.values():
@@ -38,7 +34,4 @@ func filter_entities(required_mask: int) -> Array:
 	return filtered
 
 func get_entity_by_id(entity_id: int) -> Entity:
-	for ent in entities:
-		if ent.id == entity_id:
-			return ent
-	return null
+	return entities.get(entity_id, null)

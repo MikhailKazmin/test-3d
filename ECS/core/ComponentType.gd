@@ -20,6 +20,7 @@ enum Name
 	CharacterBody3D,
 	Formation,
 	Gathering,
+	Gatherable,
 	Input,
 	MeshInstance,
 	Move,
