@@ -76,42 +76,5 @@ func create_skeleton(position: Vector3) -> Entity:
 	
 	return skeleton
 	
-func create_resurrect_effect(center: Vector3, radius: float, duration: float = 3.0) -> Entity:
-	var effect_entity = ecs_manager.create_entity()
-	var effect_comp = component_pool.get_component(ComponentType.Name.Effect)
-	effect_comp.effect_type = "resurrect"
-	effect_comp.center = center
-	effect_comp.radius = radius
-	effect_comp.duration = duration
-	effect_comp.elapsed = 0.0
-	effect_entity.add_component(effect_comp, ComponentType.get_mask(ComponentType.Name.Effect))
-	return effect_entity
 
-func create_resource(position: Vector3, resource_type: String, amount: int, mark: Node3D) -> Entity:
-	var entity = ecs_manager.create_entity()
-
-	# Позиция
-	var pos_comp = component_pool.get_component(ComponentType.Name.Position)
-	pos_comp.position = position
-	entity.add_component(pos_comp, ComponentType.get_mask(ComponentType.Name.Position))
-
-	# Собираемый ресурс
-	var gatherable_comp = component_pool.get_component(ComponentType.Name.Gatherable)
-	gatherable_comp.resource_type = resource_type
-	gatherable_comp.amount = amount
-	entity.add_component(gatherable_comp, ComponentType.get_mask(ComponentType.Name.Gatherable))
-
-	# Состояние ресурса
-	var state_comp = component_pool.get_component(ComponentType.Name.ResourceState)
-	state_comp.is_depleted = false
-	state_comp.is_marked = false
-	state_comp.mark = mark
-	entity.add_component(state_comp, ComponentType.get_mask(ComponentType.Name.ResourceState))
-
-	# Маркер
-	var mark_comp = component_pool.get_component(ComponentType.Name.Mark)
-	mark_comp.mark = mark
-	entity.add_component(mark_comp, ComponentType.get_mask(ComponentType.Name.Mark))
-
-	return entity
 	

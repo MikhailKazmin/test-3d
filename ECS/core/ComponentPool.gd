@@ -48,15 +48,5 @@ func get_string_componentType_name(Name: ComponentType.Name):
 			return "Rotate"
 		ComponentType.Name.State:
 			return "State"
-		ComponentType.Name.Effect:
-			return "Effect"
-		ComponentType.Name.Corpse:
-			return "Corpse"
-		ComponentType.Name.Gatherable:
-			return "Gatherable"
-		ComponentType.Name.ResourceState:
-			return "ResourceState"
-		ComponentType.Name.Mark:
-			return "Mark"
 		_:
 			return "UNKNOWN"

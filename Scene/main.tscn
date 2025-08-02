@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c2i0vmgn8xy4x"]
+[gd_scene load_steps=32 format=3 uid="uid://c2i0vmgn8xy4x"]
 
 [ext_resource type="Texture2D" uid="uid://ck7egiq3hvbr7" path="res://grid_texture.png" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dh7ux3canc7bl" path="res://Pref/Mag/components_char_mag.tscn" id="2_2wwxx"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://h42kdiyjlgnh" path="res://Assets/KayKit_Skeletons/Skeleton_Minion.fbx" id="17_50v0s"]
 [ext_resource type="PackedScene" uid="uid://bjc03efracoyc" path="res://Assets/KayKit_Skeletons/Skeleton_Rogue.fbx" id="18_mu7ye"]
 [ext_resource type="PackedScene" uid="uid://droeynrryv5ni" path="res://Assets/KayKit_Skeletons/Skeleton_Warrior.fbx" id="19_2oiod"]
+[ext_resource type="Resource" uid="uid://bjvo3sf30uegj" path="res://Resource/Pentagram/Resurrect/ResurrectEffect.tres" id="26_nyb1q"]
 [ext_resource type="Script" uid="uid://nfbq5x6il8o3" path="res://ECS/world/World.gd" id="26_xw8bv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
@@ -704,7 +705,8 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 52.6
 
 [node name="CircleMesh" type="MeshInstance3D" parent="."]
 
-[node name="Char_Mag" parent="." node_paths=PackedStringArray("pentagram_wheel") instance=ExtResource("2_2wwxx")]
+[node name="Char_Mag" parent="." node_paths=PackedStringArray("caster", "pentagram_wheel") instance=ExtResource("2_2wwxx")]
+caster = NodePath("../PentagramCaster")
 pentagram_wheel = NodePath("../CanvasLayer/PentagramWheel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -714,7 +716,7 @@ follow_viewport_enabled = true
 mouse_filter = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("rich_text_label")]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -339.0
@@ -745,8 +747,12 @@ script = ExtResource("10_3pt4j")
 points_count = 32
 mesh_instance = NodePath("../CircleMesh")
 
-[node name="PentagramCaster" type="Node3D" parent="." node_paths=PackedStringArray("world")]
+[node name="PentagramCaster" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance", "decal_parent", "drawer", "world")]
 script = ExtResource("11_mxd2g")
+mesh_instance = NodePath("../CircleMesh")
+decal_parent = NodePath(".")
+drawer = NodePath("../PentagramDrawer")
+current_effect = ExtResource("26_nyb1q")
 world = NodePath("../World")
 
 [node name="World" type="Node3D" parent="."]
