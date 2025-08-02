@@ -1,4 +1,4 @@
-extends BaseComponentComposition
+extends BaseComponent
 class_name BaseInput
 
 var move_input: Vector2 = Vector2.ZERO

@@ -5,7 +5,7 @@ class_name PentagramCaster
 @export var decal_parent: Node3D
 @export var drawer: PentagramDrawer
 @export var current_effect: PentagramEffect
-@export var world: World
+
 
 var drawing := false
 var center: Vector3
@@ -52,7 +52,7 @@ func _on_cast_timeout() -> void:
 	if decal:
 		decal.queue_free()
 	if current_effect:
-		current_effect.apply(center, radius, self, world)
+		current_effect.apply(center, radius, self)
 
 func _get_floor_y(pos: Vector3) -> float:
 	var from = pos + Vector3.UP * 100

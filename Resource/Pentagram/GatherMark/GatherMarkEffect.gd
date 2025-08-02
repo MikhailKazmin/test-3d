@@ -1,19 +1,23 @@
+# GatherMarkEffect.gd
 extends Object
 class_name GatherMarkEffect
 
-func apply(center: Vector3, radius: float, caller: Node, world: World) -> void:
-	var ecs_manager = world.ecs_manager
-	var required_mask = ComponentType.get_mask(ComponentType.Name.Gatherable) | ComponentType.get_mask(ComponentType.Name.Position)
-	var entities = ecs_manager.filter_entities(required_mask)
+func apply(center: Vector3, radius: float, caller: Node) -> void:
+	var gatherables = caller.get_tree().get_nodes_in_group("Gatherables")
+	var to_mark: Array = []
 
-	for entity in entities:
-		var pos_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Position))
-		var gatherable_comp = entity.get_component(ComponentType.get_mask(ComponentType.Name.Gatherable))
-		if not pos_comp or not gatherable_comp:
-			continue
+	for gatherable in gatherables:
+		if gatherable is Gatherable and center.distance_to(gatherable.global_position) <= radius:
+			var res_state = gatherable.components["state"] as ResourceState
+			if res_state and not res_state.is_depleted and not res_state.is_marked:
+				to_mark.append(gatherable)
 
-		if center.distance_to(pos_comp.position) <= radius:
-			if not gatherable_comp.is_depleted and not gatherable_comp.is_marked:
-				gatherable_comp.is_marked = true
-				if gatherable_comp.mark:
-					gatherable_comp.mark.visible = true
+	if to_mark.is_empty():
+		return
+
+	for gatherable in to_mark:
+		var res_state = gatherable.components["state"] as ResourceState
+		if res_state:
+			res_state.is_marked = true
+			if res_state.mark:
+				res_state.mark.visible = true

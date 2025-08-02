@@ -1,14 +1,14 @@
 # base_component.gd
-class_name BaseComponentComposition extends Node
+class_name BaseComponent extends Node
 
 signal component_initialized
 signal component_enabled
 signal component_disabled
 
-var entity: Unit
+var entity: Entity
 var is_active: bool = true
 
-func init(_entity: Unit) -> void:
+func init(_entity: Entity) -> void:
 	entity = _entity
 	component_initialized.emit()
 	#_setup()

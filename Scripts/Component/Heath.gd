@@ -1,4 +1,4 @@
-extends BaseComponentComposition
+extends BaseComponent
 class_name BaseHeath
 
 @export var hp := 100.0

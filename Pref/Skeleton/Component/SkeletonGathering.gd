@@ -1,4 +1,4 @@
-extends BaseComponentComposition
+extends BaseComponent
 class_name SkeletonGathering
 
 var current_resource: Gatherable = null

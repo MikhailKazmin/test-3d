@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://coetx5584t8lc" path="res://Resource/Pentagram/SkeletonMark/SkeletonMarkEffect.gd" id="1_baa6i"]
 [ext_resource type="Script" uid="uid://vmc7g1migcqc" path="res://Resource/Pentagram/PentagramEffect.gd" id="1_kqku5"]
-[ext_resource type="Texture2D" uid="uid://g5b313n5jyco" path="res://Resource/Pentagram/SkeletonMark/pentagram_summon_select_full.png" id="3_asiui"]
-[ext_resource type="Texture2D" uid="uid://4w2fq4f0vp4x" path="res://Resource/Pentagram/SkeletonMark/pentagram_summon_select_mask.png" id="4_ub15g"]
+[ext_resource type="Texture2D" uid="uid://g5b313n5jyco" path="res://Pref/Mag/pentagram_summon_select_full.png" id="3_asiui"]
+[ext_resource type="Texture2D" uid="uid://4w2fq4f0vp4x" path="res://Pref/Mag/pentagram_summon_select_mask.png" id="4_ub15g"]
 
 [resource]
 script = ExtResource("1_kqku5")

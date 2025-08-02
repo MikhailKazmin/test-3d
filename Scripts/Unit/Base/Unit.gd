@@ -1,30 +1,30 @@
 extends CharacterBody3D
-class_name Unit
+class_name Entity
 
 @export var component_parent: Node
 @onready var components: Dictionary = {}
 
 func _ready() -> void: 
 	for component in components.values():
-		if component is BaseComponentComposition:
+		if component is BaseComponent:
 			component.init(self)
 	for component in components.values():
-		if component is BaseComponentComposition:
+		if component is BaseComponent:
 			component._setup()
 
 func _process(delta: float) -> void:
 	for component in components.values():
-		if component is BaseComponentComposition and component.is_active:
+		if component is BaseComponent and component.is_active:
 			component.process(delta)
 
 func _physics_process(delta: float) -> void:
 	for component in components.values():
-		if component is BaseComponentComposition and component.is_active:
+		if component is BaseComponent and component.is_active:
 			component.physics_process(delta)
 
 func _input(event: InputEvent) -> void:
 	for component in components.values():
-		if component is BaseComponentComposition and component.is_active:
+		if component is BaseComponent and component.is_active:
 			component._input(event)
 
 func get_component(component_class: GDScript) -> Node:
